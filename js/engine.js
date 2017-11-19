@@ -5,7 +5,7 @@
 function checkCombo() {
     var x = comb.getCombo(chosen.first(), chosen.second());
     if (x !== undefined) {
-        if (!$('#book > .element[name=' + x + ']').length) {
+        if ($('#book > .element[name=' + x + ']').length) {
             alert('Element ' + x + ' already exists.');
         } else {
             $('#book').append(jQuery('<div />', {

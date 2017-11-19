@@ -7,7 +7,7 @@ function Combinations() {
         "dirt fire": "lava"
     };
     this.getCombo = function (first, second) {
-        return this._combs[first + " " + second] || this._combs[first + " " + second];
+        return this._combs[first + " " + second] || this._combs[second+ " " + first];
     };
 }
 // Combinations.prototype.getCombo = function (first, second) {
