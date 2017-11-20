@@ -15,10 +15,10 @@
         </div>
         <div class="col-3">
             <div id="book">
-                <div class="element" data-addable="true" name="water">water</div>
-                <div class="element" data-addable="true" name="fire">fire</div>
-                <div class="element" data-addable="true" name="dirt">dirt</div>
-                <div class="element" data-addable="true" name="air">air</div>
+                <div class="element" name="water">water</div>
+                <div class="element" name="fire">fire</div>
+                <div class="element" name="dirt">dirt</div>
+                <div class="element" name="air">air</div>
             </div>
         </div>
     </div>
@@ -31,12 +31,15 @@
 <script>
     var bookElementSettings = {
         helper: function () {
-            var helperElement = $(this).clone().attr('id', $(this).attr('name'));
-            var addable = !chosen.isFull();
-            helperElement.attr('data-addable', addable);
-            return helperElement;
+            return $(this).clone().attr('id', $(this).attr('name'));
         }
     };
+
+//    $('body').droppable({
+//        drop: function (event, ui) {
+//            ui.draggable.remove();
+//        }
+//    });
 
     $('#alcTable').droppable({
         greedy: true,
@@ -48,10 +51,10 @@
                     stop: function () {
                         if ($(this).attr('data-onTable') == 'false')
                             $(this).remove();
-                    },
-                    start: function () {
-                        $(this).attr('data-addable', !chosen.isFull());
                     }
+//                    start: function () {
+//                        CurrentlyDraggedOffset = $(this).offset();
+//                    }
                 }).attr('id', ui.helper.attr('id')).disableSelection();
                 $(this).append(toAppend);
                 toAppend.offset(ui.helper.offset()).attr('data-onTable', 'true');
@@ -59,15 +62,17 @@
         },
         out: function (event, ui) {
             $(this).css('background', 'black');
-            ui.draggable.attr('data-onTable', 'false');
+            ui.helper.attr('data-onTable', 'false');
         }
     });
+
     $('#alcCircle').droppable({
         greedy: true,
-        accept: '[data-addable=true]',
         drop: function (event, ui) {
             var onCircle = ui.helper.attr('data-onCircle');
-            if (!onCircle || onCircle == 'false') {
+            if (chosen.isFull()) {
+                ui.helper.offset(CurrentlyDraggedOffset);
+            } else if (!onCircle || onCircle == 'false') {
                 var toAppend = ui.helper.clone().draggable({
                     stop: function () {
                         if ($(this).attr('data-onCircle') == 'false')
@@ -88,9 +93,11 @@
         },
         out: function (event, ui) {
             $(this).css('background', 'pink');
-            ui.draggable.attr('data-onCircle', 'false');
-            chosen.remove(ui.draggable.attr('id'));
-            alert('removed ' + ui.draggable.attr('id'));
+            if (ui.helper.attr('data-onCircle') && ui.helper.attr('data-onCircle') != 'false') {
+                ui.helper.attr('data-onCircle', 'false');
+                alert('removed ' + ui.draggable.attr('id'));
+                chosen.remove(ui.helper.attr('id'));
+            }
         }
     });
     $('#book > *').draggable(bookElementSettings).disableSelection();

@@ -15,5 +15,11 @@ function checkCombo() {
             }).draggable(bookElementSettings).disableSelection());
             alert("You've created " + x);
         }
+        emptyCircle();
     }
+}
+
+function emptyCircle(){
+    $('#alcCircle > .element').remove();
+    chosen.empty();
 }

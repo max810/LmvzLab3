@@ -5,6 +5,10 @@
     /*background: yellow;*/
 /*}*/
 
+html, body{
+    height: 100%;
+}
+
 .element{
     width: 75px;
     height: 75px;

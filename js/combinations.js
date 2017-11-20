@@ -45,5 +45,8 @@ function Chosen() {
     };
     this.second = function () {
         return this._chosen[1];
+    };
+    this.empty = function () {
+      this._chosen = [];
     }
 }
