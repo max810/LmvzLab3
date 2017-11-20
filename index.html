@@ -10,15 +10,15 @@
 <body>
 <div id="content">
     <div class="row">
-        <div style="display: inline-block; width: 75%; background: #00ff4d">
-            <div id="alcTable" style="width: 500px; height: 400px; margin: 15px; background: yellow;"></div>
+        <div id="alcTable" style="display: inline-block; width: 75%; background: #00ff4d">
+            <div id="alcCircle" style="width: 250px; height: 250px; margin-left: 50px; background: yellow;"></div>
         </div>
         <div class="col-3">
             <div id="book">
-                <div class="element" name="water">water</div>
-                <div class="element" name="fire">fire</div>
-                <div class="element" name="dirt">dirt</div>
-                <div class="element" name="air">air</div>
+                <div class="element" data-addable="true" name="water">water</div>
+                <div class="element" data-addable="true" name="fire">fire</div>
+                <div class="element" data-addable="true" name="dirt">dirt</div>
+                <div class="element" data-addable="true" name="air">air</div>
             </div>
         </div>
     </div>
@@ -31,37 +31,66 @@
 <script>
     var bookElementSettings = {
         helper: function () {
-            return $(this).clone().attr('id', $(this).attr('name'));
+            var helperElement = $(this).clone().attr('id', $(this).attr('name'));
+            var addable = !chosen.isFull();
+            helperElement.attr('data-addable', addable);
+            return helperElement;
         }
     };
 
     $('#alcTable').droppable({
+        greedy: true,
         accept: '.element',
-        revert: 'invalid',
         drop: function (event, ui) {
-            ui.helper.attr('dropped', true);
-            var isChosen = ui.draggable.attr('data-isChosen');
-            if (!isChosen) {
-                var toAppend = ui.draggable.clone().draggable({
-                    stop: function (event, ui) {
-                        if ($(this).attr('dropped') == 'false') {
-                            chosen.remove($(this).attr('id'));
+            var onTable = ui.draggable.attr('data-onTable');
+            if (!onTable || onTable == 'false') {
+                var toAppend = ui.helper.clone().draggable({
+                    stop: function () {
+                        if ($(this).attr('data-onTable') == 'false')
                             $(this).remove();
-                        }
+                    },
+                    start: function () {
+                        $(this).attr('data-addable', !chosen.isFull());
                     }
-                }).attr('data-isChosen', true)
-                        .attr('id', ui.helper.attr('id'))
+                }).attr('id', ui.helper.attr('id')).disableSelection();
+                $(this).append(toAppend);
+                toAppend.offset(ui.helper.offset()).attr('data-onTable', 'true');
+            }
+        },
+        out: function (event, ui) {
+            $(this).css('background', 'black');
+            ui.draggable.attr('data-onTable', 'false');
+        }
+    });
+    $('#alcCircle').droppable({
+        greedy: true,
+        accept: '[data-addable=true]',
+        drop: function (event, ui) {
+            var onCircle = ui.helper.attr('data-onCircle');
+            if (!onCircle || onCircle == 'false') {
+                var toAppend = ui.helper.clone().draggable({
+                    stop: function () {
+                        if ($(this).attr('data-onCircle') == 'false')
+                            $(this).remove();
+                    }
+                }).attr('id', ui.helper.attr('id'))
+                        .attr('data-onCircle', true)
                         .disableSelection();
                 $(this).append(toAppend);
                 toAppend.offset(ui.helper.offset());
                 chosen.add(ui.helper.attr('id'));
                 checkCombo();
-                $(this).css('background', 'green');
+                alert('added');
             }
         },
+        activate: function () {
+            $(this).css('background', 'green');
+        },
         out: function (event, ui) {
-            $(this).css('background', 'yellow');
-            ui.draggable.attr('dropped', false);
+            $(this).css('background', 'pink');
+            ui.draggable.attr('data-onCircle', 'false');
+            chosen.remove(ui.draggable.attr('id'));
+            alert('removed ' + ui.draggable.attr('id'));
         }
     });
     $('#book > *').draggable(bookElementSettings).disableSelection();

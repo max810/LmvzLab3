@@ -7,7 +7,7 @@ function Combinations() {
         "dirt fire": "lava"
     };
     this.getCombo = function (first, second) {
-        return this._combs[first + " " + second] || this._combs[second+ " " + first];
+        return this._combs[first + " " + second] || this._combs[second + " " + first];
     };
 }
 // Combinations.prototype.getCombo = function (first, second) {
@@ -20,16 +20,19 @@ var chosen = new Chosen();
 function Chosen() {
     this._chosen = [];
     this.isFull = function () {
-        return (this.first() && this.second()) == true;
+        if (this.first() && this.second()) {
+            return true;
+        }
+        return false;
     };
     this.add = function (el) {
         if (this.isFull()) {
             this._chosen[0] = this._chosen[1];
         }
-        if(!this._chosen[0])
-            this._chosen[0] = el;
-        else
+        if (this._chosen[0])
             this._chosen[1] = el;
+        else
+            this._chosen[0] = el;
     };
     this.remove = function (el) {
         if (this._chosen[0] == el)
