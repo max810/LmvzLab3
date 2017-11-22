@@ -9,16 +9,28 @@
 </head>
 <body>
 <div id="content">
-    <div class="row">
-        <div id="alcTable" style="display: inline-block; width: 75%; background: #00ff4d">
-            <div id="alcCircle" style="width: 250px; height: 250px; margin-left: 50px; background: yellow;"></div>
+    <div class="row" style="height: 630px">
+        <div id="alcTable"
+             style="display: inline-block; position: absolute; width: 100%; background: url(./images/TableBig.png) no-repeat; height: 100%;">
+            <div id="alcCircle"
+                 style="width: 350px; height: 350px; margin: 8% 40%; background: url(./images/PentagramDis.png); background-size: contain"></div>
         </div>
-        <div class="col-3">
-            <div id="book">
-                <div class="element" name="water">water</div>
-                <div class="element" name="fire">fire</div>
-                <div class="element" name="dirt">dirt</div>
-                <div class="element" name="air">air</div>
+        <div id="book" style=" padding: 60px 50px 60px 70px;">
+            <div>
+                <div class="element" name="water" style="background: url(./images/Water.png)"></div>
+                <span class="elementName">WATER</span>
+            </div>
+            <div>
+                <div class="element" name="fire" style="background: url(./images/Fire.png)"></div>
+                <span class="elementName">FIRE</span>
+            </div>
+            <div>
+                <div class="element" name="rock" style="background: url(./images/Rock.png)"></div>
+                <span class="elementName">ROCK</span>
+            </div>
+            <div>
+                <div class="element" name="air" style="background: url(./images/Air.png)"></div>
+                <span class="elementName">AIR</span>
             </div>
         </div>
     </div>
@@ -35,72 +47,38 @@
         }
     };
 
-//    $('body').droppable({
-//        drop: function (event, ui) {
-//            ui.draggable.remove();
-//        }
-//    });
-
-    $('#alcTable').droppable({
-        greedy: true,
-        accept: '.element',
-        drop: function (event, ui) {
-            var onTable = ui.draggable.attr('data-onTable');
-            if (!onTable || onTable == 'false') {
-                var toAppend = ui.helper.clone().draggable({
-                    stop: function () {
-                        if ($(this).attr('data-onTable') == 'false')
-                            $(this).remove();
-                    }
-//                    start: function () {
-//                        CurrentlyDraggedOffset = $(this).offset();
-//                    }
-                }).attr('id', ui.helper.attr('id')).disableSelection();
-                $(this).append(toAppend);
-                toAppend.offset(ui.helper.offset()).attr('data-onTable', 'true');
-            }
-        },
-        out: function (event, ui) {
-            $(this).css('background', 'black');
-            ui.helper.attr('data-onTable', 'false');
-        }
-    });
-
     $('#alcCircle').droppable({
-        greedy: true,
         drop: function (event, ui) {
-            var onCircle = ui.helper.attr('data-onCircle');
-            if (chosen.isFull()) {
-                ui.helper.offset(CurrentlyDraggedOffset);
-            } else if (!onCircle || onCircle == 'false') {
-                var toAppend = ui.helper.clone().draggable({
+            var onCircle = ui.helper.attr('data-is-in-circle');
+            if (!onCircle || onCircle == 'false') {
+                var elementInCircle = ui.helper.clone().draggable({
                     stop: function () {
-                        if ($(this).attr('data-onCircle') == 'false')
+                        if ($(this).attr('data-is-in-circle') == 'false')
                             $(this).remove();
                     }
                 }).attr('id', ui.helper.attr('id'))
-                        .attr('data-onCircle', true)
+                        .attr('data-is-in-circle', true)
                         .disableSelection();
-                $(this).append(toAppend);
-                toAppend.offset(ui.helper.offset());
+                $(this).append(elementInCircle);
+                elementInCircle.offset(ui.helper.offset());
                 chosen.add(ui.helper.attr('id'));
                 checkCombo();
-                alert('added');
             }
-        },
-        activate: function () {
-            $(this).css('background', 'green');
         },
         out: function (event, ui) {
-            $(this).css('background', 'pink');
-            if (ui.helper.attr('data-onCircle') && ui.helper.attr('data-onCircle') != 'false') {
-                ui.helper.attr('data-onCircle', 'false');
-                alert('removed ' + ui.draggable.attr('id'));
+            if (ui.helper.attr('data-is-in-circle') && ui.helper.attr('data-is-in-circle') != 'false') {
+                ui.helper.attr('data-is-in-circle', 'false');
                 chosen.remove(ui.helper.attr('id'));
             }
+            if (chosen.isEmpty()) {
+                $(this).css('background-image', 'url(./images/PentagramDis.png)');
+            }
+        },
+        over: function () {
+            $(this).css('background-image', 'url(./images/Pentagram-Copy.png)');
         }
     });
-    $('#book > *').draggable(bookElementSettings).disableSelection();
+    $('#book > div > div').draggable(bookElementSettings).disableSelection();
 </script>
 </body>
 </html>

@@ -1,30 +1,46 @@
 /*#content > div :first-child{*/
-    /*background: #ff0300;*/
+/*background: #ff0300;*/
 /*}*/
 /*#content > div :nth-child(2){*/
-    /*background: yellow;*/
+/*background: yellow;*/
 /*}*/
 
-html, body{
+html, body {
     height: 100%;
+    background: black;
+    overflow: hidden;
 }
 
-.element{
-    width: 75px;
-    height: 75px;
-    background-color: #0b00ff;
+.element {
+    width: 72px;
+    height: 72px;
+    z-index: 101;
 }
 
-#book{
+#book {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
     align-content: flex-start;
     align-items: flex-start;
+    background: url("../images/Scroll(final).png") no-repeat;
+    margin-left: 70%;
+    background-size: cover;
+    z-index: 100;
 }
 
-#book div {
-    margin: 10px;
+#book > div {
+    margin-bottom: 25px;
 }
 
+.element:hover {
+    cursor: pointer;
+}
+
+.elementName {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-family: Consolas,Monospaced;
+}

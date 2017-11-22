@@ -4,7 +4,8 @@
 function Combinations() {
     this._combs = {
         "water fire": "steam",
-        "dirt fire": "lava"
+        "rock fire": "lava",
+        "rock water": "leaf"
     };
     this.getCombo = function (first, second) {
         return this._combs[first + " " + second] || this._combs[second + " " + first];
@@ -48,5 +49,8 @@ function Chosen() {
     };
     this.empty = function () {
       this._chosen = [];
+    },
+    this.isEmpty = function () {
+        return this._chosen.length == 0;
     }
 }
