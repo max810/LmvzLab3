@@ -5,10 +5,10 @@
 function checkCombo() {
     var x = comb.getCombo(chosen.first(), chosen.second());
     if (x !== undefined) {
-        if ($('#book .element[name=' + x + ']').length) {
+        if ($('#scroll .element[name=' + x + ']').length) {
             showAlreadyExistsWindow(x);
         } else {
-            $('#book').append(createDraggableElement(x));
+            $('#scroll').append(createDraggableElement(x));
             showCreatedWindow(x, chosen.first(), chosen.second());
         }
         emptyCircle();
@@ -23,7 +23,7 @@ function emptyCircle() {
 
 function showCreatedWindow(elementName, from1Name, from2Name) {
     var div = $('<div />', {
-        class: 'elementCreatedWindow'
+        class: 'popupWindow'
     });
     var headerDiv = $('<div />', {
         class: 'headerDiv',
@@ -49,7 +49,7 @@ function showCreatedWindow(elementName, from1Name, from2Name) {
             div.remove();
         }
     });
-    div.append(headerDiv, divBody, button);
+    div.append(headerDiv, divBody, button).css('z-index', 102);
     $('body').append(div);
 }
 
@@ -63,8 +63,8 @@ function showAlreadyExistsWindow(name){
 }
 
 function updateChosenCount(){
-    $('#chosenCount').text(chosen.isFull() ? 2
-        : chosen.isEmpty() ? 0
-        : 1);
+    $('#flaskCount').text(chosen.count());
+    $('#flask').css('background-image', 'url(./images/Flask' + chosen.count() + '.png)');
+    //$('#flask').css('background-image', 'url(./images/Flask1.png)');
 }
 

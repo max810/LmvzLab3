@@ -48,5 +48,8 @@ function Chosen() {
     };
     this.isEmpty = function () {
         return this._chosen.length == 0;
+    };
+    this.count = function () {
+      return this.isFull() ? 2 : this.isEmpty() ? 0 : 1;
     }
 }

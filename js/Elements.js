@@ -8,7 +8,7 @@ function createStaticElement(name, withName, size) {
         name: name,
         class: 'element'
     }).css('background-image', 'url(./images/' + name[0].toUpperCase() + name.slice(1) + '.png')
-        .css('background-repeat', 'no-repeat').css('background-size', 'cover')
+        .css('background-size', 'contain')
         .disableSelection();
     div.append(el);
     if(withName){
@@ -28,7 +28,7 @@ function createDraggableElement(name){
         class: 'element draggableElement'
     }).css('background-image', 'url(./images/' + name[0].toUpperCase() + name.slice(1) + '.png')
         .css('background-repeat', 'no-repeat')
-        .draggable(bookElementSettings)
+        .draggable(scrollElementSettings)
         .addClass('newlyFound')
         .mouseover(function () {
             $(this).removeClass('newlyFound');

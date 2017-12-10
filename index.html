@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Title</title>
-    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery-ui.css" />
     <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="js/jsTree/dist/themes/default/style.css" />
 </head>
 <body>
 <div id="content">
@@ -17,22 +18,72 @@
         <span class="usualFont"> ALREADY EXISTS</span>
     </div>
     <div class="row" style="height: 630px">
-        <div id="alcTable"
-             style="display: inline-block; position: absolute; width: 100%; background: url(./images/TableBig.png) no-repeat; height: 100%;">
-            <div id="alcCircle"
-                 style="width: 350px; height: 350px; margin: 0 40%; background: url(./images/PentagramDis.png); background-size: contain"></div>
+        <div id="alcTable">
+            <div id="alcCircle">
+
+            </div>
+            <div id="flask" style="">
+                <div class="usualFont" style="font-size: 28px;">
+                    <span id="flaskCount">0</span>/2
+                </div>
+            </div>
+            <div id="guideBook">
+
+            </div>
+            <div id="guideBookOpened" class="popupWindow" style="display: none">
+                <div style="display: flex; flex-direction: column; width: 210px;">
+                    <div>
+                        <input type="search" class="form-control" id="searchBar" placeholder="Search the guidebook..." />
+                    </div>
+                    <div id="tableOfContents" style="text-align: left;">
+                        <ul>
+                            <li>Game mechanics
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </li>
+                            <li>Using hints
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </li>
+                            <li>Achievements
+                                <ul>
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="article" style="width: 210px;">
+                    <div id="articleName"><h1>ADSFd</h1></div>
+                    <div id="articleContent">adfijo&nbsp; dsfjnaiudn&nbsp;</div>
+                </div>
+                <div id="closeGuideBookButton">
+
+                </div>
+            </div>
         </div>
-        <div id="book" style=" padding: 60px 50px 60px 70px;">
+        <div id="scroll" style=" padding: 60px 50px 60px 70px;">
             <div>
-                <div class="element draggableElement" name="water" style="background-image: url(./images/Water.png)"></div>
+                <div class="element draggableElement" name="water"
+                     style="background-image: url(./images/Water.png)"></div>
                 <span class="elementName">WATER</span>
             </div>
             <div>
-                <div class="element draggableElement" name="fire" style="background-image: url(./images/Fire.png)"></div>
+                <div class="element draggableElement" name="fire"
+                     style="background-image: url(./images/Fire.png)"></div>
                 <span class="elementName">FIRE</span>
             </div>
             <div>
-                <div class="element draggableElement" name="rock" style="background-image: url(./images/Rock.png)"></div>
+                <div class="element draggableElement" name="rock"
+                     style="background-image: url(./images/Rock.png)"></div>
                 <span class="elementName">ROCK</span>
             </div>
             <div>
@@ -41,21 +92,17 @@
             </div>
         </div>
     </div>
-    <div style="position: absolute; width: 300px; height: 75px; margin: -20% 40%; background: white;">
-        <div id="firstChosen">
-        </div>
-        <span class="usualFont" id="chosenCount">0</span>
-        <span class="usualFont"> / 2</span>
-    </div>
 </div>
 <script src="js/jquery-3.2.1.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery-ui.js"></script>
+<script src="js/jsTree/dist/jstree.js"></script>
 <script src="js/combinations.js"></script>
 <script src="js/elements.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/jsTree.js"></script>
 <script>
-    var bookElementSettings = {
+    var scrollElementSettings = {
         helper: function () {
             return $(this).clone().attr('id', $(this).attr('name'));
         },
@@ -65,12 +112,12 @@
     $('#alcCircle').droppable({
         drop: function (event, ui) {
             var onCircle = ui.helper.attr('data-is-in-circle');
-            if ((!onCircle || onCircle == 'false') && !chosen.isFull() ) {
+            if ((!onCircle || onCircle == 'false') && !chosen.isFull()) {
                 var elementInCircle = ui.helper.clone().draggable({
                     stop: function () {
                         if ($(this).attr('data-is-in-circle') == 'false')
                             $(this).remove();
-                            updateChosenCount();
+                        updateChosenCount();
                     }
                 }).attr('id', ui.helper.attr('id'))
                         .attr('data-is-in-circle', true)
@@ -95,7 +142,14 @@
             $(this).css('background-image', 'url(./images/Pentagram-Copy.png)');
         }
     });
-    $('#book > div > div').draggable(bookElementSettings).disableSelection();
+    $('#scroll > div > div').draggable(scrollElementSettings).disableSelection();
+    $('#flask').disableSelection().css('cursor', 'default');
+    $('#closeGuideBookButton').click(function () {
+        $('#guideBookOpened').hide();
+    });
+    $('#guideBook').click(function () {
+        $('#guideBookOpened').show();
+    });
 </script>
 </body>
 </html>

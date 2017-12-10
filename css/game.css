@@ -18,7 +18,7 @@ html, body {
     background-size: contain;
 }
 
-#book {
+#scroll {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -31,8 +31,88 @@ html, body {
     z-index: 100;
 }
 
-#book > div {
+#alcTable {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    background: url(../images/TableBig.png) no-repeat;
+    height: 100%;
+}
+
+#alcCircle {
+    width: 350px;
+    height: 350px;
+    margin: 0 40%;
+    background: url(../images/PentagramDis.png);
+    background-size: contain
+}
+
+#flask {
+    position: absolute;
+    width: 90px;
+    height: 150px;
+    margin: 2% 50.5%;
+    background: url("../images/Flask0.png") no-repeat;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: darkgreen;
+}
+
+#scroll > div {
     margin-bottom: 25px;
+}
+
+#guideBook {
+    background: url(../images/Guidebook.png) no-repeat;
+    background-size: contain;
+    width: 170px;
+    height: 106px;
+    cursor: pointer;
+    margin: -20% 20%;
+}
+
+#guideBook:hover {
+    background-image: url(../images/GuidebookActivated.png);
+}
+
+#guideBookOpened {
+    background: url(../images/GuidebookOpened.png) no-repeat;
+    background-size: contain;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 25px 50px;
+}
+
+#closeGuideBookButton {
+    position: relative;
+    margin-right: 0;
+    margin-top: 0;
+    background: url(../images/CloseGuideBookButton.png) no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+#closeGuideBookButton:hover{
+    opacity: 1.0;
+    box-shadow: -5px 5px 10px 5px #f1d110;
+}
+
+#tableOfContents {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchBar {
+    border-radius: 0 0 4px 4px;
+    margin: 0 auto;
+    height: 28px;
+    min-width: 100%;
+    max-width: 100%;
 }
 
 .draggableElement {
@@ -56,14 +136,14 @@ html, body {
     font-family: Consolas, Monospaced;
 }
 
-.usualFont{
+.usualFont {
     font-weight: bold;
     font-family: Consolas, Monospaced;
 }
 
 /* Всплывающее окно */
 
-.elementCreatedWindow {
+.popupWindow {
     position: absolute;
     top: 0;
     left: 0;
@@ -92,12 +172,12 @@ html, body {
     margin-bottom: 50px;
 }
 
-.newlyFound{
-    background-color: rgba(95,255,247,0.6);
-    box-shadow: 0 0 20px 5px rgba(95,255,247,0.6);
+.newlyFound {
+    background-color: rgba(95, 255, 247, 0.6);
+    box-shadow: 0 0 20px 5px rgba(95, 255, 247, 0.6);
 }
 
-#alreadyExistsWindow{
+#alreadyExistsWindow {
     position: absolute;
     display: none;
     width: 500px;
@@ -105,4 +185,9 @@ html, body {
     background-color: rgba(255, 255, 100, 0.6);
     z-index: 102;
     margin: 0 25%;
+}
+
+#currentRecipe {
+    display: flex;
+    justify-content: center;
 }
