@@ -9,52 +9,68 @@
 </head>
 <body>
 <div id="content">
+    <div id="alreadyExistsWindow">
+        <span class="usualFont" style="vertical-align: middle">ELEMENT
+        </span>
+        <div id="alreadyExistsElement" style="display: inline-block" class="element">
+        </div>
+        <span class="usualFont"> ALREADY EXISTS</span>
+    </div>
     <div class="row" style="height: 630px">
         <div id="alcTable"
              style="display: inline-block; position: absolute; width: 100%; background: url(./images/TableBig.png) no-repeat; height: 100%;">
             <div id="alcCircle"
-                 style="width: 350px; height: 350px; margin: 8% 40%; background: url(./images/PentagramDis.png); background-size: contain"></div>
+                 style="width: 350px; height: 350px; margin: 0 40%; background: url(./images/PentagramDis.png); background-size: contain"></div>
         </div>
         <div id="book" style=" padding: 60px 50px 60px 70px;">
             <div>
-                <div class="element" name="water" style="background: url(./images/Water.png)"></div>
+                <div class="element draggableElement" name="water" style="background-image: url(./images/Water.png)"></div>
                 <span class="elementName">WATER</span>
             </div>
             <div>
-                <div class="element" name="fire" style="background: url(./images/Fire.png)"></div>
+                <div class="element draggableElement" name="fire" style="background-image: url(./images/Fire.png)"></div>
                 <span class="elementName">FIRE</span>
             </div>
             <div>
-                <div class="element" name="rock" style="background: url(./images/Rock.png)"></div>
+                <div class="element draggableElement" name="rock" style="background-image: url(./images/Rock.png)"></div>
                 <span class="elementName">ROCK</span>
             </div>
             <div>
-                <div class="element" name="air" style="background: url(./images/Air.png)"></div>
+                <div class="element draggableElement" name="air" style="background-image: url(./images/Air.png)"></div>
                 <span class="elementName">AIR</span>
             </div>
         </div>
+    </div>
+    <div style="position: absolute; width: 300px; height: 75px; margin: -20% 40%; background: white;">
+        <div id="firstChosen">
+        </div>
+        <span class="usualFont" id="chosenCount">0</span>
+        <span class="usualFont"> / 2</span>
     </div>
 </div>
 <script src="js/jquery-3.2.1.js"></script>
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery-ui.js"></script>
 <script src="js/combinations.js"></script>
+<script src="js/elements.js"></script>
 <script src="js/engine.js"></script>
 <script>
     var bookElementSettings = {
         helper: function () {
             return $(this).clone().attr('id', $(this).attr('name'));
-        }
+        },
+        containment: 'window'
     };
 
     $('#alcCircle').droppable({
         drop: function (event, ui) {
             var onCircle = ui.helper.attr('data-is-in-circle');
-            if (!onCircle || onCircle == 'false') {
+            if ((!onCircle || onCircle == 'false') && !chosen.isFull() ) {
                 var elementInCircle = ui.helper.clone().draggable({
                     stop: function () {
                         if ($(this).attr('data-is-in-circle') == 'false')
                             $(this).remove();
+                            updateChosenCount();
                     }
                 }).attr('id', ui.helper.attr('id'))
                         .attr('data-is-in-circle', true)
@@ -63,6 +79,7 @@
                 elementInCircle.offset(ui.helper.offset());
                 chosen.add(ui.helper.attr('id'));
                 checkCombo();
+                updateChosenCount();
             }
         },
         out: function (event, ui) {

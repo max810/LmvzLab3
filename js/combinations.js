@@ -11,13 +11,9 @@ function Combinations() {
         return this._combs[first + " " + second] || this._combs[second + " " + first];
     };
 }
-// Combinations.prototype.getCombo = function (first, second) {
-//     return this._combs[first + "" + second] || this._combs[first + "" + second];
-// };
 
 var comb = new Combinations();
 var chosen = new Chosen();
-
 function Chosen() {
     this._chosen = [];
     this.isFull = function () {
@@ -49,7 +45,7 @@ function Chosen() {
     };
     this.empty = function () {
       this._chosen = [];
-    },
+    };
     this.isEmpty = function () {
         return this._chosen.length == 0;
     }

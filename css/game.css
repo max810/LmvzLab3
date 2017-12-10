@@ -15,6 +15,7 @@ html, body {
     width: 72px;
     height: 72px;
     z-index: 101;
+    background-size: contain;
 }
 
 #book {
@@ -34,13 +35,74 @@ html, body {
     margin-bottom: 25px;
 }
 
-.element:hover {
-    cursor: pointer;
+.draggableElement {
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
+.draggableElement:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
 }
 
 .elementName {
     display: block;
     text-align: center;
     font-weight: bold;
-    font-family: Consolas,Monospaced;
+    font-family: Consolas, Monospaced;
+}
+
+.usualFont{
+    font-weight: bold;
+    font-family: Consolas, Monospaced;
+}
+
+/* Всплывающее окно */
+
+.elementCreatedWindow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    width: 500px;
+    height: 400px;
+
+    margin: auto;
+
+    background: url(../images/ScrollWindow1.png) no-repeat;
+    padding: 15px;
+    text-align: center;
+}
+
+.headerDiv {
+    font-size: 28px;
+    font-family: Consolas, Monospaced;
+    font-weight: bold;
+    margin-bottom: 25px;
+    margin-top: 50px;
+}
+
+.divBody {
+    margin-bottom: 50px;
+}
+
+.newlyFound{
+    background-color: rgba(95,255,247,0.6);
+    box-shadow: 0 0 20px 5px rgba(95,255,247,0.6);
+}
+
+#alreadyExistsWindow{
+    position: absolute;
+    display: none;
+    width: 500px;
+    height: 100px;
+    background-color: rgba(255, 255, 100, 0.6);
+    z-index: 102;
+    margin: 0 25%;
 }
