@@ -25,6 +25,16 @@ function showFoundElements() {
         .append($('<br />'))
         .append($('<h2 />').text("Other elements (found " + comb.found.length + '/' + (Object.keys(comb.getAllRecipes())).length + ')'))
         .append($('<br />'));
+    for (var i of comb.found) {
+        divBody
+            .append(createStaticElement(i, true))
+            .append(createStaticElement('equals'))
+            .append(createStaticElement(comb.recipeFor(i)[0], true))
+            .append(createStaticElement('plus'))
+            .append(createStaticElement(comb.recipeFor(i)[1], true))
+            .append($('<br />'))
+            .append($('<br />'));
+    }
     for (var i in comb.getAllRecipes()) {
         if (comb.recipeFor(i) == 'unknown') {
             divBody
@@ -32,17 +42,10 @@ function showFoundElements() {
                 .append(createStaticElement('equals'))
                 .append(createStaticElement('unknown'))
                 .append(createStaticElement('plus'))
-                .append(createStaticElement('unknown'));
-        } else {
-            divBody
-                .append(createStaticElement(i, true))
-                .append(createStaticElement('equals'))
-                .append(createStaticElement(comb.recipeFor(i)[0], true))
-                .append(createStaticElement('plus'))
-                .append(createStaticElement(comb.recipeFor(i)[1], true));
+                .append(createStaticElement('unknown'))
+                .append($('<br />'))
+                .append($('<br />'));
         }
-        divBody.append($('<br />'));
-        divBody.append($('<br />'));
     }
     $(divBody.children().has('.element'))
         .hover(function () {
