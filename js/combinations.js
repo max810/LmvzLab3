@@ -5,11 +5,31 @@ function Combinations() {
     this._combs = {
         "water fire": "steam",
         "rock fire": "lava",
-        "rock water": "leaf"
+        "rock water": "leaf",
+        "rock s": "g",
+        "rock fg": "v"
+    };
+    this._recipes = flip(this._combs);
+    this.getAllCombs = function () {
+        return Object.assign({}, this._combs);
+    };
+    this.getAllRecipes = function () {
+        return Object.assign({}, this._recipes);
     };
     this.getCombo = function (first, second) {
-        return this._combs[first + " " + second] || this._combs[second + " " + first];
+        var newElem1 = this._combs[first + " " + second];
+        var newElem2 = this._combs[second + " " + first];
+        if (newElem1) {
+            this.found[newElem1] = first + " " + second;
+        } else if (newElem2) {
+            this.found[newElem2] = second + " " + first;
+        }
+        return newElem1 || newElem2;
     };
+    this.found = [];
+    this.recipeFor = function (elem) {
+        return this.found[elem] ? this._recipes[elem].split(' ') : 'unknown';
+    }
 }
 
 var comb = new Combinations();
@@ -44,12 +64,20 @@ function Chosen() {
         return this._chosen[1];
     };
     this.empty = function () {
-      this._chosen = [];
+        this._chosen = [];
     };
     this.isEmpty = function () {
         return this._chosen.length == 0;
     };
     this.count = function () {
-      return this.isFull() ? 2 : this.isEmpty() ? 0 : 1;
+        return this.isFull() ? 2 : this.isEmpty() ? 0 : 1;
     }
+}
+
+function flip(obj) {
+    var res = {};
+    for (var key in obj) {
+        res[obj[key]] = key;
+    }
+    return res;
 }

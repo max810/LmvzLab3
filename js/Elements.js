@@ -2,7 +2,7 @@
  * Created by maxbe on 10.12.2017.
  */
 
-function createStaticElement(name, withName, size) {
+function createStaticElement(name, withName) {
     var div = $('<div />');
     var el = $('<div />', {
         name: name,

@@ -39,7 +39,7 @@
                         <ul>
                             <li>Game mechanics
                                 <ul>
-                                    <li>1</li>
+                                    <li id="article_name_1">1</li>
                                     <li>2</li>
                                     <li>3</li>
                                 </ul>
@@ -62,12 +62,15 @@
                     </div>
                 </div>
                 <div id="article" style="width: 210px;">
-                    <div id="articleName"><h1>ADSFd</h1></div>
-                    <div id="articleContent">adfijo&nbsp; dsfjnaiudn&nbsp;</div>
+                    <div><h2 id="articleName">ADSFd</h2></div>
+                    <div><span id="articleContent">&nbsp; dsfjnaiudn&nbsp;</span></div>
                 </div>
                 <div id="closeGuideBookButton">
 
                 </div>
+            </div>
+            <div id="glossary">
+
             </div>
         </div>
         <div id="scroll" style=" padding: 60px 50px 60px 70px;">
@@ -99,9 +102,13 @@
 <script src="js/jsTree/dist/jstree.js"></script>
 <script src="js/combinations.js"></script>
 <script src="js/elements.js"></script>
+<script src="js/cookies.js"></script>
 <script src="js/engine.js"></script>
+<script src="js/guide.js"></script>
+<script src="js/glossary.js"></script>
 <script src="js/jsTree.js"></script>
 <script>
+    isSomethingOpened = false;
     var scrollElementSettings = {
         helper: function () {
             return $(this).clone().attr('id', $(this).attr('name'));
@@ -149,6 +156,9 @@
     });
     $('#guideBook').click(function () {
         $('#guideBookOpened').show();
+    });
+    $('#glossary').click(function () {
+       showFoundElements();
     });
 </script>
 </body>

@@ -10,6 +10,7 @@ function checkCombo() {
         } else {
             $('#scroll').append(createDraggableElement(x));
             showCreatedWindow(x, chosen.first(), chosen.second());
+            comb.found.push(x);
         }
         emptyCircle();
     }
