@@ -24,7 +24,8 @@ function emptyCircle() {
 
 function showCreatedWindow(elementName, from1Name, from2Name) {
     var div = $('<div />', {
-        class: 'popupWindow'
+        class: 'popupWindow',
+        style: 'z-index: ' + $('.popupWindow').css('z-index')
     });
     var headerDiv = $('<div />', {
         class: 'headerDiv',
@@ -50,7 +51,7 @@ function showCreatedWindow(elementName, from1Name, from2Name) {
             div.remove();
         }
     });
-    div.append(headerDiv, divBody, button).css('z-index', 102);
+    div.append(headerDiv, divBody, button);
     $('body').append(div);
 }
 

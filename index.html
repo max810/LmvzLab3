@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
-    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css"/>
     <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/game.css" />
-    <link rel="stylesheet" href="js/jsTree/dist/themes/default/style.css" />
+    <link rel="stylesheet" href="css/game.css"/>
+    <link rel="stylesheet" href="js/jsTree/dist/themes/default/style.css"/>
 </head>
 <body>
 <div id="content">
+    <div id="glove"></div>
     <div id="alreadyExistsWindow">
         <span class="usualFont" style="vertical-align: middle">ELEMENT
         </span>
@@ -17,61 +18,75 @@
         </div>
         <span class="usualFont"> ALREADY EXISTS</span>
     </div>
-    <div class="row" style="height: 630px">
-        <div id="alcTable">
-            <div id="alcCircle">
+    <div style="height: 630px" id="alcTable">
+        <div id="alcCircle">
 
+        </div>
+        <div id="flask" style="">
+            <div class="usualFont" style="font-size: 28px;">
+                <span id="flaskCount">0</span>/2
             </div>
-            <div id="flask" style="">
-                <div class="usualFont" style="font-size: 28px;">
-                    <span id="flaskCount">0</span>/2
+        </div>
+        <div id="guideBook">
+
+        </div>
+        <div id="hint">
+
+        </div>
+        <div id="glossary">
+
+        </div>
+        <div id="guideBookOpened" class="popupWindow" style="display: none">
+            <div style="display: flex; flex-direction: column; width: 210px;">
+                <div>
+                    <input type="search" class="form-control" id="searchBar" placeholder="Search the guidebook..."/>
+                </div>
+                <div id="tableOfContents" style="text-align: left;">
+                    <ul>
+                        <li>Game mechanics
+                            <ul>
+                                <li id="article_name_1">1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </li>
+                        <li>Using hints
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </li>
+                        <li>Achievements
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div id="guideBook">
+            <div id="article" style="width: 210px;">
+                <div><h2 id="articleName">ADSFd</h2></div>
+                <div><span id="articleContent">&nbsp; dsfjnaiudn&nbsp;</span></div>
+            </div>
+            <div id="closeGuideBookButton" class="closeButton">
 
             </div>
-            <div id="guideBookOpened" class="popupWindow" style="display: none">
-                <div style="display: flex; flex-direction: column; width: 210px;">
-                    <div>
-                        <input type="search" class="form-control" id="searchBar" placeholder="Search the guidebook..." />
-                    </div>
-                    <div id="tableOfContents" style="text-align: left;">
-                        <ul>
-                            <li>Game mechanics
-                                <ul>
-                                    <li id="article_name_1">1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </li>
-                            <li>Using hints
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </li>
-                            <li>Achievements
-                                <ul>
-                                    <li>1</li>
-                                    <li>2</li>
-                                    <li>3</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="article" style="width: 210px;">
-                    <div><h2 id="articleName">ADSFd</h2></div>
-                    <div><span id="articleContent">&nbsp; dsfjnaiudn&nbsp;</span></div>
-                </div>
-                <div id="closeGuideBookButton">
-
-                </div>
-            </div>
-            <div id="glossary">
-
-            </div>
+        </div>
+        <div id="hintOpened" class="popupWindow" style="padding: 30px 15px; display: none">
+            <div id="closeHintButton" class="closeButton"
+                 style="background: url(./images/ScrollWindowClose.png); width: 22px; height: 19px; margin-top: -28px; margin-right: -6px;"></div>
+            <div class="headerDiv usualFont" style="margin: 0 0 10px">HINTS</div>
+            <p class="usualFont" style="font-size: 18px;">You have <span id="hintsCount">20</span> hints available
+            </p>
+            <p id="currentHintText" style="height: 120px; font-size: large">
+                    <span style="color: rgba(127, 127, 127, 0.7)" class="usualFont">
+                        CLICK THE BUTTON TO GET A HINT
+                    </span>
+            </p>
+            <button id="getHint">Get a hint!</button>
         </div>
         <div id="scroll" style=" padding: 60px 50px 60px 70px;">
             <div>
@@ -107,6 +122,8 @@
 <script src="js/guide.js"></script>
 <script src="js/glossary.js"></script>
 <script src="js/jsTree.js"></script>
+<script src="js/hints.js"></script>
+<script src="js/tutorial.js"></script>
 <script>
     isSomethingOpened = false;
     var scrollElementSettings = {
@@ -129,7 +146,7 @@
                 }).attr('id', ui.helper.attr('id'))
                         .attr('data-is-in-circle', true)
                         .disableSelection();
-                $(this).append(elementInCircle);
+                $(this).append(elementInCircle.css('z-index', 100));
                 elementInCircle.offset(ui.helper.offset());
                 chosen.add(ui.helper.attr('id'));
                 checkCombo();
@@ -158,8 +175,61 @@
         $('#guideBookOpened').show();
     });
     $('#glossary').click(function () {
-       showFoundElements();
+        showFoundElements();
     });
+    $('#getHint').click(function () {
+        var name = getHint();
+        if (name == undefined) {
+            $('#currentHintText').html("You've found <span style='font-size: 24px; color: #56ff00'>ALL</span> elements!");
+            hintsCount++;
+        } else if (name == false) {
+            $('#currentHintText').html("Sorry, you've run out of hints!<br /><b>Unlock elements</b> to get more hints. ")
+        } else {
+            $('#currentHintText').html("What can you make <span style='font-size: 20px; font-style: italic; text-decoration: underline; color: green;'>" + name + "</span> with?")
+        }
+        $('#hintsCount').html(hintsCount);
+    });
+    $('#hint').click(function () {
+        $('#hintOpened').show();
+    });
+    $('#closeHintButton').click(function () {
+        $('#hintOpened').hide();
+    });
+    $(document).ready(function () {
+        setTimeout(function () {
+            showSlide(
+                    "BASE GAMEPLAY. STEP 1/2. Drag an item from scroll to add it to alc. circle",
+                    $('#glove'),
+                    [
+                        {
+                            left: '+=520px',
+                            top: '-=80px'
+                        },
+                        'background: url(./images/GloveClosedWater.png);',
+                        {
+                            left: '-=400px',
+                            top: '+= 40px'
+                        },
+                        'background: url(./images/GloveOpenedWater.png)'
+                    ],
+                    $('#scroll, #alcCircle'),
+                    {
+                        slideTitle: "BASE GAMEPLAY. STEP 2/2. Drag an item from alc. circle to dispose of it.",
+                        animated: $('#glove'),
+                        animations: [
+                            'background: url(./images/GloveClosedWater.png);',
+                            {
+                                left: '-=215px',
+                                top: '+=80px'
+                            },
+                            'background: url(./images/GloveOpened.png);'
+                        ],
+                        activeElements: $('#alcCircle')
+                    });
+        }, 1000);
+    });
+
+    //    createSlide($('#guideBook, #scroll, #alcCircle, .popupWindow')).insertBefore($('#content'));
 </script>
 </body>
 </html>

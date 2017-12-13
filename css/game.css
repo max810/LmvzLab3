@@ -14,12 +14,12 @@ html, body {
 .element {
     width: 72px;
     height: 72px;
-    z-index: 101;
     background-size: contain;
     background: no-repeat;
 }
 
 #scroll {
+    position: absolute;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -27,9 +27,25 @@ html, body {
     align-content: flex-start;
     align-items: flex-start;
     background: url("../images/Scroll(final).png") no-repeat;
-    margin-left: 70%;
+    margin-left: 70.5%;
     background-size: cover;
-    z-index: 100;
+    height: 100%;
+    z-index: 0;
+}
+
+#scroll > div {
+    margin-bottom: 25px;
+}
+
+#glove {
+    width: 100px;
+    height: 100px;
+    background: url(../images/GloveOpened.png) no-repeat;
+    background-size: contain;
+    position: absolute;
+    z-index: 1001;
+    left: 35%;
+    top: 25%;
 }
 
 #alcTable {
@@ -41,6 +57,7 @@ html, body {
 }
 
 #alcCircle {
+    position: absolute;
     width: 350px;
     height: 350px;
     margin: 0 40%;
@@ -52,7 +69,7 @@ html, body {
     position: absolute;
     width: 90px;
     height: 110px;
-    margin: 2% 50.5%;
+    margin: 30% 50.5%;
     background: url("../images/Flask0.png") no-repeat;
     background-size: contain;
     display: flex;
@@ -65,17 +82,14 @@ html, body {
     margin-top: 40%;
 }
 
-#scroll > div {
-    margin-bottom: 25px;
-}
-
 #guideBook {
+    position: absolute;
     background: url(../images/Guidebook.png) no-repeat;
     background-size: contain;
     width: 170px;
     height: 106px;
     cursor: pointer;
-    margin: -20% 20%;
+    margin: 20% 20%;
 }
 
 #guideBook:hover {
@@ -90,7 +104,7 @@ html, body {
     padding: 25px 25px 50px;
 }
 
-#closeGuideBookButton {
+.closeButton {
     position: relative;
     background: url(../images/GuidebookPart.png) no-repeat;
     background-size: contain;
@@ -98,11 +112,10 @@ html, body {
     height: 63px;
     opacity: 0.5;
     cursor: pointer;
-    margin-top: -10.5px;
-    margin-right: -6px;
+    margin: -10.5px -6px auto auto;
 }
 
-#closeGuideBookButton:hover {
+.closeButton:hover {
     opacity: 1.0;
     /*box-shadow: -5px 5px 10px 5px #f1d110;*/
 }
@@ -120,14 +133,30 @@ html, body {
     max-width: 100%;
 }
 
+#hint {
+    position: absolute;
+    background: red;
+    cursor: pointer;
+    margin: 29% 25%;
+    width: 100px;
+    height: 100px;
+}
+
+#hintsCount {
+    color: #00db0b;
+    font-size: x-large;
+    text-decoration: underline;
+}
+
 #glossary {
+    position: absolute;
     width: 80px;
     height: 130px;
     background: red;
     background: url(../images/Glossary.png) no-repeat;
     background-size: 100% 100%;
     cursor: pointer;
-    margin: 25% 22%;
+    margin: 7% 22%;
 }
 
 #glossary:hover {
@@ -208,11 +237,74 @@ html, body {
     width: 500px;
     height: 100px;
     background-color: rgba(255, 255, 100, 0.6);
-    z-index: 102;
+    z-index: 100;
     margin: 0 25%;
 }
 
 #currentRecipe {
     display: flex;
     justify-content: center;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 100, 100, 0.7);
+    position: absolute;
+    z-index: 1000;
+    margin: 0;
+}
+
+.nextButton {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 37% 47%;
+    width: 250px;
+    height: 110px;
+    background-color: blue;
+    color: white;
+    opacity: 0.9;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    cursor: pointer;
+    z-index: 1003;
+}
+
+.repeatButton {
+    position: absolute;
+    margin: 37% 37%;
+    width: 110px;
+    height: 110px;
+    background: url(../images/RepeatButton.png);
+    background-color: lightblue;
+    color: white;
+    opacity: 0.9;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    cursor: pointer;
+    z-index: 1003;
+
+}
+
+.slideTitle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0;
+    width: 550px;
+    height: 110px;
+    background-color: green;
+    color: white;
+    opacity: 0.9;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    cursor: pointer;
+    font-size: 32px;
+    text-align: center;
+}
+
+.usualButton:hover {
+    opacity: 1.0;
+    border: 4px solid silver;
 }
