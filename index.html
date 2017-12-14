@@ -1,235 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/jquery-ui.css"/>
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/game.css"/>
-    <link rel="stylesheet" href="js/jsTree/dist/themes/default/style.css"/>
 </head>
+<style>
+    #gameTitle {
+        margin: 0 auto 100px;
+        max-width: 40%;
+        border-radius: 10px;
+        border: 4px solid black;
+    }
+
+    h1, h2 {
+        font-family: Consolas, monospace;
+        text-align: center;
+        margin: 5px auto;
+    }
+
+    #menu > * {
+        margin: 15px auto;
+        background: #0aa109;
+        max-width: 25%;
+        border: 4px solid transparent;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    #menu > *:hover {
+        background: #14f72f;
+        border: 4px dotted black;
+    }
+
+    a {
+        text-decoration: none;
+        color: black;
+        display: block;
+    }
+</style>
 <body>
-<div id="content">
-    <div id="glove"></div>
-    <div id="alreadyExistsWindow">
-        <span class="usualFont" style="vertical-align: middle">ELEMENT
-        </span>
-        <div id="alreadyExistsElement" style="display: inline-block" class="element">
-        </div>
-        <span class="usualFont"> ALREADY EXISTS</span>
-    </div>
-    <div style="height: 630px" id="alcTable">
-        <div id="alcCircle">
-
-        </div>
-        <div id="flask" style="">
-            <div class="usualFont" style="font-size: 28px;">
-                <span id="flaskCount">0</span>/2
-            </div>
-        </div>
-        <div id="guideBook">
-
-        </div>
-        <div id="hint">
-
-        </div>
-        <div id="glossary">
-
-        </div>
-        <div id="guideBookOpened" class="popupWindow" style="display: none">
-            <div style="display: flex; flex-direction: column; width: 210px;">
-                <div>
-                    <input type="search" class="form-control" id="searchBar" placeholder="Search the guidebook..."/>
-                </div>
-                <div id="tableOfContents" style="text-align: left;">
-                    <ul>
-                        <li>Game mechanics
-                            <ul>
-                                <li id="article_name_1">1</li>
-                                <li>2</li>
-                                <li>3</li>
-                            </ul>
-                        </li>
-                        <li>Using hints
-                            <ul>
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                            </ul>
-                        </li>
-                        <li>Achievements
-                            <ul>
-                                <li>1</li>
-                                <li>2</li>
-                                <li>3</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="article" style="width: 210px;">
-                <div><h2 id="articleName">ADSFd</h2></div>
-                <div><span id="articleContent">&nbsp; dsfjnaiudn&nbsp;</span></div>
-            </div>
-            <div id="closeGuideBookButton" class="closeButton">
-
-            </div>
-        </div>
-        <div id="hintOpened" class="popupWindow" style="padding: 30px 15px; display: none">
-            <div id="closeHintButton" class="closeButton"
-                 style="background: url(./images/ScrollWindowClose.png); width: 22px; height: 19px; margin-top: -28px; margin-right: -6px;"></div>
-            <div class="headerDiv usualFont" style="margin: 0 0 10px">HINTS</div>
-            <p class="usualFont" style="font-size: 18px;">You have <span id="hintsCount">20</span> hints available
-            </p>
-            <p id="currentHintText" style="height: 120px; font-size: large">
-                    <span style="color: rgba(127, 127, 127, 0.7)" class="usualFont">
-                        CLICK THE BUTTON TO GET A HINT
-                    </span>
-            </p>
-            <button id="getHint">Get a hint!</button>
-        </div>
-        <div id="scroll" style=" padding: 60px 50px 60px 70px;">
-            <div>
-                <div class="element draggableElement" name="water"
-                     style="background-image: url(./images/Water.png)"></div>
-                <span class="elementName">WATER</span>
-            </div>
-            <div>
-                <div class="element draggableElement" name="fire"
-                     style="background-image: url(./images/Fire.png)"></div>
-                <span class="elementName">FIRE</span>
-            </div>
-            <div>
-                <div class="element draggableElement" name="rock"
-                     style="background-image: url(./images/Rock.png)"></div>
-                <span class="elementName">ROCK</span>
-            </div>
-            <div>
-                <div class="element draggableElement" name="air" style="background-image: url(./images/Air.png)"></div>
-                <span class="elementName">AIR</span>
-            </div>
-        </div>
-    </div>
+<h1 id="gameTitle" style="background: #0aa219; font-size: 72px; color: white">ALCHEMIST</h1>
+<div id="menu">
+    <a href="game.html"><h2>NEW GAME</h2></a>
+    <a href="game.html?notut"><h2>QUICK START<br />(NO TUTORIAL)</h2></a>
+    <a href="404.html"><h2>ABOUT</h2></a>
+    <h2 id="close">EXIT</h2>
 </div>
 <script src="js/jquery-3.2.1.js"></script>
-<script src="js/bootstrap.js"></script>
-<script src="js/jquery-ui.js"></script>
-<script src="js/jsTree/dist/jstree.js"></script>
-<script src="js/combinations.js"></script>
-<script src="js/elements.js"></script>
-<script src="js/cookies.js"></script>
-<script src="js/engine.js"></script>
-<script src="js/guide.js"></script>
-<script src="js/glossary.js"></script>
-<script src="js/jsTree.js"></script>
-<script src="js/hints.js"></script>
-<script src="js/tutorial.js"></script>
 <script>
-    isSomethingOpened = false;
-    var scrollElementSettings = {
-        helper: function () {
-            return $(this).clone().attr('id', $(this).attr('name'));
-        },
-        containment: 'window'
-    };
-
-    $('#alcCircle').droppable({
-        drop: function (event, ui) {
-            var onCircle = ui.helper.attr('data-is-in-circle');
-            if ((!onCircle || onCircle == 'false') && !chosen.isFull()) {
-                var elementInCircle = ui.helper.clone().draggable({
-                    stop: function () {
-                        if ($(this).attr('data-is-in-circle') == 'false')
-                            $(this).remove();
-                        updateChosenCount();
-                    }
-                }).attr('id', ui.helper.attr('id'))
-                        .attr('data-is-in-circle', true)
-                        .disableSelection();
-                $(this).append(elementInCircle.css('z-index', 100));
-                elementInCircle.offset(ui.helper.offset());
-                chosen.add(ui.helper.attr('id'));
-                checkCombo();
-                updateChosenCount();
-            }
-        },
-        out: function (event, ui) {
-            if (ui.helper.attr('data-is-in-circle') && ui.helper.attr('data-is-in-circle') != 'false') {
-                ui.helper.attr('data-is-in-circle', 'false');
-                chosen.remove(ui.helper.attr('id'));
-            }
-            if (chosen.isEmpty()) {
-                $(this).css('background-image', 'url(./images/PentagramDis.png)');
-            }
-        },
-        over: function () {
-            $(this).css('background-image', 'url(./images/Pentagram-Copy.png)');
-        }
+    $('#close').click(function () {
+        window.close();
     });
-    $('#scroll > div > div').draggable(scrollElementSettings).disableSelection();
-    $('#flask').disableSelection().css('cursor', 'default');
-    $('#closeGuideBookButton').click(function () {
-        $('#guideBookOpened').hide();
-    });
-    $('#guideBook').click(function () {
-        $('#guideBookOpened').show();
-    });
-    $('#glossary').click(function () {
-        showFoundElements();
-    });
-    $('#getHint').click(function () {
-        var name = getHint();
-        if (name == undefined) {
-            $('#currentHintText').html("You've found <span style='font-size: 24px; color: #56ff00'>ALL</span> elements!");
-            hintsCount++;
-        } else if (name == false) {
-            $('#currentHintText').html("Sorry, you've run out of hints!<br /><b>Unlock elements</b> to get more hints. ")
-        } else {
-            $('#currentHintText').html("What can you make <span style='font-size: 20px; font-style: italic; text-decoration: underline; color: green;'>" + name + "</span> with?")
-        }
-        $('#hintsCount').html(hintsCount);
-    });
-    $('#hint').click(function () {
-        $('#hintOpened').show();
-    });
-    $('#closeHintButton').click(function () {
-        $('#hintOpened').hide();
-    });
-    $(document).ready(function () {
-        setTimeout(function () {
-            showSlide(
-                    "BASE GAMEPLAY. STEP 1/2. Drag an item from scroll to add it to alc. circle",
-                    $('#glove'),
-                    [
-                        {
-                            left: '+=520px',
-                            top: '-=80px'
-                        },
-                        'background: url(./images/GloveClosedWater.png);',
-                        {
-                            left: '-=400px',
-                            top: '+= 40px'
-                        },
-                        'background: url(./images/GloveOpenedWater.png)'
-                    ],
-                    $('#scroll, #alcCircle'),
-                    {
-                        slideTitle: "BASE GAMEPLAY. STEP 2/2. Drag an item from alc. circle to dispose of it.",
-                        animated: $('#glove'),
-                        animations: [
-                            'background: url(./images/GloveClosedWater.png);',
-                            {
-                                left: '-=215px',
-                                top: '+=80px'
-                            },
-                            'background: url(./images/GloveOpened.png);'
-                        ],
-                        activeElements: $('#alcCircle')
-                    });
-        }, 1000);
-    });
-
-    //    createSlide($('#guideBook, #scroll, #alcCircle, .popupWindow')).insertBefore($('#content'));
 </script>
 </body>
 </html>

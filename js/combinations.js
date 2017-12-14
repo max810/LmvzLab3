@@ -6,8 +6,8 @@ function Combinations() {
         "water fire": "steam",
         "rock fire": "lava",
         "rock water": "leaf",
-        "rock s": "g",
-        "rock fg": "v"
+        "lava water": "metal",
+        "fire air": "energy"
     };
     this._recipes = flip(this._combs);
     this.getAllCombs = function () {

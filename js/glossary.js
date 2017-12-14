@@ -25,7 +25,7 @@ function showFoundElements() {
         .append($('<br />'))
         .append($('<h2 />').text("Other elements (found " + comb.found.length + '/' + (Object.keys(comb.getAllRecipes())).length + ')'))
         .append($('<br />'));
-    for (var i of comb.found) {
+    for (let i of comb.found) {
         divBody
             .append(createStaticElement(i, true))
             .append(createStaticElement('equals'))
@@ -35,7 +35,7 @@ function showFoundElements() {
             .append($('<br />'))
             .append($('<br />'));
     }
-    for (var i in comb.getAllRecipes()) {
+    for (let i in comb.getAllRecipes()) {
         if (comb.recipeFor(i) == 'unknown') {
             divBody
                 .append(createStaticElement('unknown'))
@@ -53,12 +53,17 @@ function showFoundElements() {
         });
     var button = $('<button />', {
         class: 'btn btn-success',
-        text: 'OK',
-        style: 'font-size: 24px; font-weight: bold; font-family: Consolas, Monospaced',
+        text: 'CLOSE',
+        style: 'font-size: 24px; font-weight: bold; font-family: Consolas, Monospaced; margin-top: 5px; height: 40px; padding: 0 5px;',
         click: function () {
             div.remove();
         }
     });
-    div.append(headerDiv, divBody, button).css('z-index', 102);
+    var closeButton = $(`<div id="closeHintButton" class="closeButton"
+    style="background: url(./images/ScrollWindowClose.png); background-size: contain;  width: 40px; height: 35px; margin-top: -10px; margin-right: -9px;"></div>`)
+    closeButton.click(function () {
+        div.remove();
+    });
+    div.append(closeButton, divBody).css('z-index', 102);
     $('body').append(div);
 }

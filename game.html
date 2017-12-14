@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="css/jquery-ui.css"/>
+    <link rel="stylesheet" href="css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/game.css"/>
+    <link rel="stylesheet" href="js/jsTree/dist/themes/default/style.css"/>
+</head>
+<body>
+<div id="content">
+    <div id="glove" style="opacity: 0;"></div>
+    <div id="alreadyExistsWindow">
+        <span class="usualFont" style="vertical-align: middle">ELEMENT ALREADY EXISTS:
+        </span>
+        <div id="alreadyExistsElement" style="display: inline-block" class="element">
+        </div>
+    </div>
+    <div id="achievementUnlocked">
+        <h3 class="usualFont">ACHIEVEMENT UNLOCKED!</h3><br/>
+        <div id="achievementUnlockedIcon" class="element">
+        </div>
+        <div id="achievementUnlockedText">
+        </div>
+    </div>
+    <div style="height: 630px" id="alcTable">
+        <div id="alcCircle">
+
+        </div>
+        <div id="flask">
+            <div class="usualFont" style="font-size: 28px;">
+                <span id="flaskCount">0</span>/2
+            </div>
+        </div>
+        <div id="guideBook" data-toggle="tooltip" title="Guide book">
+
+        </div>
+        <div id="hint"  data-toggle="tooltip" title="Hints menu">
+
+        </div>
+        <div id="glossary" data-toggle="tooltip" title="Elements list">
+
+        </div>
+        <button id="closeAll" class="btn btn-danger">
+            <span style="font-size: 36px;">EXIT</span>
+        </button>
+        <div id="achievementsIcon"  data-toggle="tooltip" title="Achievements">
+
+        </div>
+        <div id="guideBookOpened" class="popupWindow" style="display: none">
+            <div style="display: flex; flex-direction: column; width: 210px;">
+                <div>
+                    <input type="search" class="form-control" id="searchBar" placeholder="Search the guidebook..."/>
+                </div>
+                <div id="tableOfContents" style="text-align: left;">
+                    <ul>
+                        <li id="Game mechanics">Game mechanics
+                            <ul>
+                                <li id="Moving elements">Moving elements</li>
+                                <li id="Combining elements">Combining elements</li>
+                                <li id="Results">Combination results</li>
+                            </ul>
+                        </li>
+                        <li id="Hints">Hints
+                            <ul>
+                                <li id="What hints are">What hints are</li>
+                                <li id="Using hints">Using hints</li>
+                            </ul>
+                        </li>
+                        <li id="Achievements">Achievements
+                            <ul>
+                                <li id="What for?">What for?</li>
+                                <li id="Where?">Where are they?</li>
+                                <li id="How to unlock?">How to unlock?</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="article" style="width: 210px; padding-left: 40px;">
+                <div><h3 id="articleName">Alchemist guide</h3></div>
+                <div><span id="articleContent">Here you can find information about how to play the game.</span></div>
+            </div>
+            <div id="closeGuideBookButton" class="closeButton">
+
+            </div>
+        </div>
+        <div id="hintOpened" class="popupWindow" style="padding: 30px 15px; display: none">
+            <div id="closeHintButton" class="closeButton"
+                 style="background: url(./images/ScrollWindowClose.png); width: 22px; height: 19px; margin-top: -28px; margin-right: -6px;"></div>
+            <div class="headerDiv usualFont" style="margin: 0 0 10px">HINTS</div>
+            <p class="usualFont" style="font-size: 18px;">You have <span id="hintsCount">20</span> hints available
+            </p>
+            <p id="currentHintText" style="height: 120px; font-size: large">
+                    <span style="color: rgba(127, 127, 127, 0.7)" class="usualFont">
+                        CLICK THE BUTTON TO GET A HINT
+                    </span>
+            </p>
+            <button id="getHint">Get a hint!</button>
+        </div>
+        <div id="scroll" style=" padding: 60px 50px 60px 70px;">
+            <h1 style="text-align: center; margin-top: -20px; margin-bottom: 30px;">&nbsp;&nbsp;&nbsp;&nbsp;Elements&nbsp;&nbsp;&nbsp;&nbsp;</h1>
+            <div>
+                <div class="element draggableElement" name="water"
+                     style="background-image: url(./images/Water.png)"></div>
+                <span class="elementName">WATER</span>
+            </div>
+            <div>
+                <div class="element draggableElement" name="fire"
+                     style="background-image: url(./images/Fire.png)"></div>
+                <span class="elementName">FIRE</span>
+            </div>
+            <div>
+                <div class="element draggableElement" name="rock"
+                     style="background-image: url(./images/Rock.png)"></div>
+                <span class="elementName">ROCK</span>
+            </div>
+            <div>
+                <div class="element draggableElement" name="air" style="background-image: url(./images/Air.png)"></div>
+                <span class="elementName">AIR</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="js/jquery-3.2.1.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/jsTree/dist/jstree.js"></script>
+<script src="js/combinations.js"></script>
+<script src="js/elements.js"></script>
+<script src="js/cookies.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/guide.js"></script>
+<script src="js/glossary.js"></script>
+<script src="js/jsTree.js"></script>
+<script src="js/hints.js"></script>
+<script src="js/tutorial.js"></script>
+<script src="js/achievements.js"></script>
+<script>
+    isSomethingOpened = false;
+    var scrollElementSettings = {
+        helper: function () {
+            return $(this).clone().attr('id', $(this).attr('name'));
+        },
+        containment: 'window'
+    };
+
+    $('#alcCircle').droppable({
+        drop: function (event, ui) {
+            var onCircle = ui.helper.attr('data-is-in-circle');
+            if ((!onCircle || onCircle == 'false') && !chosen.isFull()) {
+                var elementInCircle = ui.helper.clone().draggable({
+                    stop: function () {
+                        if ($(this).attr('data-is-in-circle') == 'false')
+                            $(this).remove();
+                        updateChosenCount();
+                    }
+                }).attr('id', ui.helper.attr('id'))
+                        .attr('data-is-in-circle', true)
+                        .disableSelection();
+                $(this).append(elementInCircle.css('z-index', 100));
+                elementInCircle.offset(ui.helper.offset());
+                chosen.add(ui.helper.attr('id'));
+                checkCombo();
+            }
+        },
+        out: function (event, ui) {
+            if (ui.helper.attr('data-is-in-circle') && ui.helper.attr('data-is-in-circle') != 'false') {
+                ui.helper.attr('data-is-in-circle', 'false');
+                chosen.remove(ui.helper.attr('id'));
+            }
+            if (chosen.isEmpty()) {
+                $(this).css('background-image', 'url(./images/PentagramDis.png)');
+            }
+        },
+        over: function () {
+            $(this).css('background-image', 'url(./images/Pentagram-Copy.png)');
+        }
+    });
+    $('#scroll > div > div').draggable(scrollElementSettings).disableSelection();
+    $('#flask').disableSelection().css('cursor', 'default');
+    $('#closeGuideBookButton').click(function () {
+        $('#guideBookOpened').hide();
+    });
+    $('#guideBook').click(function () {
+        $('#guideBookOpened').show();
+    });
+    $('#glossary').click(function () {
+        showFoundElements();
+    });
+    $('#getHint').click(function () {
+        var name = getHint();
+        if (name == undefined) {
+            $('#currentHintText').html("You've found <span style='font-size: 24px; color: #56ff00'>ALL</span> elements!");
+            hintsCount++;
+        } else if (name == false) {
+            $('#currentHintText').html("Sorry, you've run out of hints!<br /><b>Unlock elements</b> to get more hints. ")
+        } else {
+            $('#currentHintText').html("What can you make <span style='font-size: 20px; font-style: italic; text-decoration: underline; color: green;'>" + name + "</span> with?")
+        }
+        $('#hintsCount').html(hintsCount);
+    });
+    $('#hint').click(function () {
+        $('#hintsCount').html(hintsCount);
+        $('#hintOpened').show();
+    });
+    $('#closeAll').click(function () {
+        showConfirmationWindow();
+    });
+    $('#closeHintButton').click(function () {
+        $('#hintOpened').hide();
+    });
+    $('#achievementsIcon').click(function () {
+        showAchievementsWindow();
+    });
+    if (window.location.search.indexOf('notut') == -1) {
+        let glove = $('#glove');
+        glove.css('opacity', '1.0');
+        showSlide(
+                "BASE GAMEPLAY. STEP 1/2. Drag an item from scroll to add it to alc. circle",
+                glove,
+                [
+                    '',
+                    {
+                        left: '+=520px',
+                        top: '-=80px'
+                    },
+                    'background: url(./images/GloveClosedWater.png);',
+                    {
+                        left: '-=400px',
+                        top: '+= 40px'
+                    },
+                    'background: url(./images/GloveOpenedWater.png)'
+                ],
+                $('#scroll, #alcCircle'),
+                {
+                    slideTitle: "BASE GAMEPLAY. STEP 2/2. Drag an item from alc. circle to dispose of it.",
+                    animated: glove,
+                    animations: [
+                        'background: url(./images/GloveClosedWater.png);',
+                        {
+                            left: '-=215px',
+                            top: '+=80px'
+                        },
+                        'background: url(./images/GloveOpened.png);'
+                    ],
+                    activeElements: $('#alcCircle')
+                }, function () {
+                    showGifWindow();
+                });
+    } else {
+        $('#glove').hide();
+    }
+    $('[data-toggle="tooltip"]').tooltip();
+    //    createSlide($('#guideBook, #scroll, #alcCircle, .popupWindow')).insertBefore($('#content'));
+</script>
+</body>
+</html>
